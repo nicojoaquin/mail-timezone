@@ -24,16 +24,7 @@ Every hour, the application checks each user's timezone and sends an email if th
 cd "folder app name"
 ```
 
-### 2️⃣ Create a `.env` file with the following variables:
-
-```env
-DATABASE_URL="postgresql://postgres:admin@localhost:5434/maildb?schema=public"
-MAILGUN_API_KEY=6fea6b501f8dfc3b4c6786d6508287fe-3af52e3b-ee9bd172
-EMAIL_SMTP_HOST=smtp.mailgun.org
-EMAIL_SMTP_USER=nicojoaquin-mail-cron@sandbox1bc9b7372e2b40a48425c4a304c39d1c.mailgun.org
-EMAIL_SMTP_PASSWORD=mailcron
-MAIL_HOUR=17
-```
+### 2️⃣ Create a `.env` file with the variables that were provided
 
 ### 3️⃣ Install dependencies
 
