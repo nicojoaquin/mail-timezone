@@ -18,15 +18,19 @@ Every hour, the application checks each user's timezone and sends an email if th
 
 ## 📂 How to Run the Application
 
-### 1️⃣ Navigate to the project folder
+### 1️⃣ Install Yarn
+
+Ensure that you have Yarn installed on your machine. If not, you can install it following the official guide: [Yarn Installation](https://classic.yarnpkg.com/lang/en/docs/install).
+
+### 2️⃣ Navigate to the project folder
 
 ```bash
 cd "folder app name"
 ```
 
-### 2️⃣ Create a `.env` file with the variables that were provided
+### 3️⃣ Create a `.env` file with the variables that were provided
 
-### 3️⃣ Install dependencies
+### 4️⃣ Install dependencies
 
 ```bash
 yarn install
@@ -34,15 +38,27 @@ yarn install
 yarn
 ```
 
-### 4️⃣ Set up the database
+### 5️⃣ Set up Docker and PostgreSQL
+
+Make sure Docker and Docker Compose are installed. If they are not, you can install them from [Docker's official website](https://docs.docker.com/compose/install).
+
+Run the following command to start the PostgreSQL container:
 
 ```bash
-npx prisma migrate dev
-npx prisma generate
-npx prisma db seed
+docker-compose up -d
 ```
 
-### 5️⃣ Start the application
+This will start the PostgreSQL container in detached mode.
+
+Run the following commands to set up the database and generate the necessary Prisma files:
+
+```bash
+yarn prisma migrate dev
+yarn prisma generate
+yarn prisma db seed
+```
+
+### 6️⃣ Start the application
 
 ```bash
 yarn start:dev
