@@ -1,73 +1,99 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Mail Scheduler Application
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## 📌 Overview
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+This application is built with **NestJS** and uses **PostgreSQL** with **Prisma** as the ORM. It also utilizes **nestjs-schedule** to run a cron job every hour.
 
-## Description
+Every hour, the application checks each user's timezone and sends an email if their selected time (default is **17:00**) has passed. The default value can be modified via environment variables.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## 🚀 Technologies Used
 
-## Installation
+- **NestJS** - Backend framework
+- **PostgreSQL** - Database
+- **Prisma** - ORM for database management
+- **nestjs-schedule** - Cron job scheduler
+- **Nodemailer** - Email handling
+- **Mailgun** - Email service provider
+- **Dependency Injection** - Decouples the implementation from Nodemailer and Mailgun
+
+## 📂 How to Run the Application
+
+### 1️⃣ Navigate to the project folder
 
 ```bash
-$ yarn install
+cd "folder app name"
 ```
 
-## Running the app
+### 2️⃣ Create a `.env` file with the following variables:
+
+```env
+DATABASE_URL="postgresql://postgres:admin@localhost:5434/maildb?schema=public"
+MAILGUN_API_KEY=6fea6b501f8dfc3b4c6786d6508287fe-3af52e3b-ee9bd172
+EMAIL_SMTP_HOST=smtp.mailgun.org
+EMAIL_SMTP_USER=nicojoaquin-mail-cron@sandbox1bc9b7372e2b40a48425c4a304c39d1c.mailgun.org
+EMAIL_SMTP_PASSWORD=mailcron
+MAIL_HOUR=17
+```
+
+### 3️⃣ Install dependencies
 
 ```bash
-# development
-$ yarn run start
-
-# watch mode
-$ yarn run start:dev
-
-# production mode
-$ yarn run start:prod
+yarn install
+# or
+yarn
 ```
 
-## Test
+### 4️⃣ Set up the database
 
 ```bash
-# unit tests
-$ yarn run test
-
-# e2e tests
-$ yarn run test:e2e
-
-# test coverage
-$ yarn run test:cov
+npx prisma migrate dev
+npx prisma generate
+npx prisma db seed
 ```
 
-## Support
+### 5️⃣ Start the application
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+```bash
+yarn start:dev
+```
 
-## Stay in touch
+## ⏳ Adjusting the Cron Job Frequency
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+If you want to change how often the cron job runs (for testing purposes), modify the `CronExpression` in the `task.service.ts` file:
 
-## License
+```typescript
+@Cron(CronExpression.EVERY_HOUR) // Change this as needed
+```
 
-Nest is [MIT licensed](LICENSE).
+Refer to [Cron Expressions](https://docs.nestjs.com/techniques/task-scheduling) for valid options.
+
+## 📌 Main Business Logic
+
+The core logic of the application is inside the `task.service.ts` file, which handles:
+
+- Checking user timezones
+- Verifying if the scheduled hour has passed
+- Sending emails via Mailgun
+
+## 👥 Modifying Test Users
+
+If you want to modify test users and their email addresses, edit the `prisma/seed.ts` file.
+
+```typescript
+const users = [
+  {
+    email: 'test1@example.com',
+    timezone: 'America/New_York',
+  },
+  {
+    email: 'test2@example.com',
+    timezone: 'Europe/London',
+  },
+];
+```
+
+To find valid timezone identifiers, check this list: [List of Timezones](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) (TZ Identifier column).
+
+---
+
+🎯 **Now your Mail Scheduler is ready to run!** 🚀

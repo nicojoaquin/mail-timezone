@@ -5,33 +5,33 @@ const prisma = new PrismaClient();
 async function main() {
   const users = [
     {
-      name: 'Nico',
-      surname: 'Joaquin',
-      email: 'nicojoaquin1998@gmail.com',
+      name: 'John',
+      surname: 'Doe',
+      email: 'johndoe@example.com',
       timezone: 'America/Argentina/Buenos_Aires',
     },
     {
-      name: 'Nico',
-      surname: 'Joaquin',
-      email: 'nicojoaquin1998@gmail.com',
+      name: 'Jane',
+      surname: 'Smith',
+      email: 'janesmith@example.com',
       timezone: 'America/New_York',
     },
     {
-      name: 'Nico',
-      surname: 'Joaquin',
-      email: 'nicojoaquin1998@gmail.com',
+      name: 'Michael',
+      surname: 'Brown',
+      email: 'michaelbrown@example.com',
       timezone: 'America/Toronto',
     },
     {
-      name: 'Nico',
-      surname: 'Joaquin',
-      email: 'nicojoaquin1998@gmail.com',
+      name: 'Emily',
+      surname: 'Clark',
+      email: 'emilyclark@example.com',
       timezone: 'Europe/London',
     },
     {
-      name: 'Nico',
-      surname: 'Joaquin',
-      email: 'nicojoaquin1998@gmail.com',
+      name: 'David',
+      surname: 'Johnson',
+      email: 'davidjohnson@example.com',
       timezone: 'Asia/Tokyo',
     },
   ];

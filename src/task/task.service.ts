@@ -13,7 +13,7 @@ export class TaskService {
     private readonly configService: ConfigService,
   ) {}
 
-  @Cron(CronExpression.EVERY_10_SECONDS)
+  @Cron(CronExpression.EVERY_HOUR)
   async handleCron() {
     const MAIL_HOUR = this.configService.get<number>('MAIL_HOUR') || 17;
 
