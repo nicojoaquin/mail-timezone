@@ -89,12 +89,16 @@ If you want to modify test users and their email addresses, edit the `prisma/see
 ```typescript
 const users = [
   {
-    email: 'test1@example.com',
-    timezone: 'America/New_York',
+    name: 'John',
+    surname: 'Doe',
+    email: 'johndoe@example.com',
+    timezone: 'America/Argentina/Buenos_Aires',
   },
   {
-    email: 'test2@example.com',
-    timezone: 'Europe/London',
+    name: 'Jane',
+    surname: 'Smith',
+    email: 'janesmith@example.com',
+    timezone: 'America/New_York',
   },
 ];
 ```
