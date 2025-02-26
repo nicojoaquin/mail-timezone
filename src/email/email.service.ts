@@ -8,8 +8,6 @@ export class EmailService {
   constructor(@Inject('Mailer') private mailer: Mailer) {}
 
   async sendMail({ to, subject, text }: SendEmaiLDto): Promise<void> {
-    console.log('sending email', to);
-
     await this.mailer.sendEmail(to, subject, text);
   }
 }
