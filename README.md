@@ -13,8 +13,8 @@ Every hour, the application checks each user's timezone and sends an email if th
 - **Prisma** - ORM for database management
 - **nestjs-schedule** - Cron job scheduler
 - **Nodemailer** - Email handling
-- **Mailgun** - Email service provider
-- **Dependency Injection** - Decouples the implementation from Nodemailer and Mailgun
+- **Sendgrid** - Email service provider
+- **Dependency Injection** - Decouples the implementation from Nodemailer and Sendgrid
 
 ## 📂 How to Run the Application
 
@@ -80,11 +80,13 @@ The core logic of the application is inside the `task.service.ts` file, which ha
 
 - Checking user timezones
 - Verifying if the scheduled hour has passed
-- Sending emails via Mailgun
+- Sending emails via Sendgrid
 
 ## 👥 Modifying Test Users
 
-If you want to modify test users and their email addresses, edit the `prisma/seed.ts` file.
+If you want to modify test users and their email addresses, and add your personal email for testing purposes, edit the prisma/seed.ts file.
+
+EXAMPLE:
 
 ```typescript
 const users = [

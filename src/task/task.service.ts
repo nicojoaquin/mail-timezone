@@ -13,7 +13,7 @@ export class TaskService {
     private readonly configService: ConfigService,
   ) {}
 
-  @Cron(CronExpression.EVERY_HOUR)
+  @Cron(CronExpression.EVERY_10_SECONDS)
   async handleCron() {
     const MAIL_HOUR = this.configService.get<number>('MAIL_HOUR') || 17;
 
@@ -37,6 +37,8 @@ export class TaskService {
   }
 
   private async sendDailyEmail(email: string) {
+    console.log('Sending email to', email);
+
     await this.emailService.sendMail({
       to: email,
       subject: 'Daily Update',

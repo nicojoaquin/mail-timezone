@@ -17,7 +17,7 @@ import { NodeMailerMailer } from './implementations/nodemailer-mailer';
           },
         },
         defaults: {
-          from: `${configService.get('EMAIL_FROM') || 'nicojoaquiin@gmail.com'}`,
+          from: `${configService.get('EMAIL_FROM') || 'nicojoaquin1998@gmail.com'}`,
         },
       }),
       inject: [ConfigService],
